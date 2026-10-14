@@ -1,0 +1,16 @@
+{
+  "apiVersion": 1,
+  "providers": [
+    {
+      "name": "Factory lab",
+      "folder": "AI Factory",
+      "type": "file",
+      "disableDeletion": false,
+      "allowUiUpdates": true,
+      "updateIntervalSeconds": 5,
+      "options": {
+        "path": "/var/lib/grafana/dashboards"
+      }
+    }
+  ]
+}

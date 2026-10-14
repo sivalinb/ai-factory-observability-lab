@@ -1,0 +1,1180 @@
+{
+  "uid": "factory-workloads",
+  "title": "Factory / Training and inference",
+  "description": "AI Factory Reliability Lab. Default vendor and workload feeds are simulated. Origins remain visible. Source-linked documentation accompanies every signal.",
+  "schemaVersion": 41,
+  "version": 1,
+  "editable": true,
+  "tags": [
+    "ai-factory",
+    "nvidia",
+    "observability-lab"
+  ],
+  "timezone": "browser",
+  "refresh": "5s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m"
+    ]
+  },
+  "style": "dark",
+  "panels": [
+    {
+      "type": "marcusolsson-dynamictext-panel",
+      "title": "",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_factory_info",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "content": "{{#each data}}<div class='hero'><div><div class='eyebrow'>AI FACTORY / WORKLOADS 03</div><div class='headline'>Measure useful work, not just busy GPUs.</div><div class='subline'>Training progress, scheduling fairness and inference experience, side by side.</div><div class='nav'><a href='/d/factory-overview'>Overview \u2197</a><a href='/d/factory-fabric'>Fabric \u2197</a><a href='/d/factory-workloads'>Workloads \u2197</a><a href='/d/factory-signals'>Signal atlas \u2197</a><a href='http://localhost:8090' target='_blank'>Scenario console \u2197</a></div></div><div class='pill'>{{mode}} / {{signal_count}} SIGNALS</div></div>{{/each}}",
+        "defaultContent": "<div class='brief'><h3>Telemetry unavailable</h3><p>Check the source feed and time range. Missing telemetry is not healthy telemetry.</p></div>",
+        "renderMode": "allRows",
+        "editors": [
+          "styles"
+        ],
+        "editor": {
+          "language": "html",
+          "format": "auto"
+        },
+        "styles": "\n& { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #eef3ef; }\n.hero {padding: 20px 24px; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(110deg,#19261d,#121820 68%); border-left:4px solid #b7f77b; min-height:90px;}\n.eyebrow {font-size:10px; font-weight:700; letter-spacing:2.3px; color:#b7f77b; margin-bottom:8px;}\n.headline {font-size:27px; font-weight:600; letter-spacing:-0.7px; margin:0 0 6px;}\n.subline {font-size:12px; color:#a3afa8; line-height:1.5;}\n.pill {border:1px solid #5c6b43; border-radius:18px; padding:6px 12px; font-size:10px; letter-spacing:1px; color:#b7f77b; white-space:nowrap;}\n.nav {display:flex;gap:14px;margin-top:13px;flex-wrap:wrap;}\n.nav a,.runbook a {color:#c8ef99;text-decoration:none;font-size:11px;}\n.domains {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:12px 8px;}\n.domain {background:#171f1c;border:1px solid #34413a;border-radius:7px;padding:14px 10px;min-height:78px;}\n.domain-title {font-size:9px;letter-spacing:1.1px;color:#aab7ae;margin-bottom:14px;}\n.status {font-size:12px;font-weight:600;letter-spacing:.4px;}\n.caption {font-size:9px;color:#7f8b84;margin-top:9px;}\n.brief {padding:17px 18px;border-left:3px solid #ff9770;background:linear-gradient(130deg,#251c18,#161b20);margin:8px;border-radius:3px;}\n.brief h3 {font-size:18px;margin:9px 0 12px;letter-spacing:-.3px;}\n.brief p {color:#c1c6c0;font-size:11px;line-height:1.65;margin:8px 0;}\n.brief .meta {font-size:10px;color:#a9b8a9;letter-spacing:.3px;}\n.runbook {margin-top:12px;border-top:1px solid #39413a;padding-top:10px;}\n.source-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;}\n.source {padding:12px;background:#17201d;border:1px solid #34413a;border-radius:6px;}\n.source b {font-size:12px;color:#d9eed0;} .source small {display:block;font-size:10px;color:#96a599;margin-top:7px;}\n.source a {display:block;font-size:10px;color:#b7f77b;margin-top:8px;}\n@media(max-width:900px){.domains{grid-template-columns:repeat(4,minmax(0,1fr));}.headline{font-size:22px}.source-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}\n",
+        "helpers": "",
+        "afterRender": "",
+        "externalStyles": [],
+        "contentPartials": [],
+        "wrap": false
+      },
+      "id": 1
+    },
+    {
+      "type": "timeseries",
+      "title": "Training steps \u00b7 every rank",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "lab_training_step_seconds: Most recent training step per rank. Unit: second. lab-defined normalized metric.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_training_step_seconds{workload=\"train-42\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "rank {{rank}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "showPoints": "never",
+            "axisPlacement": "auto",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 2,
+      "links": [
+        {
+          "title": "Application instrumentation \u00b7 original docs",
+          "url": "https://docs.pytorch.org/docs/stable/distributed.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "First token and completion \u00b7 p95",
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "e2e_request_latency_seconds: Request completion latency distribution. Unit: second. documented exporter name.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab:inference_ttft_p95_seconds",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "TTFT p95"
+        },
+        {
+          "refId": "B",
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(e2e_request_latency_seconds_bucket[1m])))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Completion p95"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "showPoints": "never",
+            "axisPlacement": "auto",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 3,
+      "links": [
+        {
+          "title": "NVIDIA NIM \u00b7 original docs",
+          "url": "https://docs.nvidia.com/nim/large-language-models/1.15.0/observability.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "heatmap",
+      "title": "First-token latency \u00b7 distribution over time",
+      "gridPos": {
+        "x": 0,
+        "y": 12,
+        "w": 12,
+        "h": 9
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "time_to_first_token_seconds: First-token latency distribution. Unit: second. documented exporter name.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (le) (rate(time_to_first_token_seconds_bucket[1m]))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "heatmap",
+          "instant": false,
+          "range": true,
+          "legendFormat": "{{le}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "calculate": false,
+        "yAxis": {
+          "unit": "s",
+          "axisPlacement": "left"
+        },
+        "color": {
+          "mode": "scheme",
+          "scheme": "Spectral",
+          "reverse": true,
+          "steps": 64
+        },
+        "legend": {
+          "show": true
+        },
+        "tooltip": {
+          "show": true,
+          "yHistogram": true
+        }
+      },
+      "id": 4,
+      "links": [
+        {
+          "title": "NVIDIA NIM \u00b7 original docs",
+          "url": "https://docs.nvidia.com/nim/large-language-models/1.15.0/observability.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "marcusolsson-dynamictext-panel",
+      "title": "Workload incident brief",
+      "gridPos": {
+        "x": 12,
+        "y": 12,
+        "w": 12,
+        "h": 9
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_incident_info",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "content": "{{#each data}}<div class='brief'><div class='eyebrow'>INCIDENT BRIEF / {{mode}}</div><h3>{{title}}</h3><div class='meta'>{{node}} \u00b7 {{workload}}</div><p><b>Evidence</b><br>{{evidence}}</p><p><b>Next action</b><br>{{action}}</p><div class='runbook'><a href='http://localhost:8090/runbooks#{{domain}}' target='_blank'>Open {{domain}} runbook \u2197</a></div></div>{{/each}}",
+        "defaultContent": "<div class='brief'><h3>Telemetry unavailable</h3><p>Check the source feed and time range. Missing telemetry is not healthy telemetry.</p></div>",
+        "renderMode": "allRows",
+        "editors": [
+          "styles"
+        ],
+        "editor": {
+          "language": "html",
+          "format": "auto"
+        },
+        "styles": "\n& { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #eef3ef; }\n.hero {padding: 20px 24px; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(110deg,#19261d,#121820 68%); border-left:4px solid #b7f77b; min-height:90px;}\n.eyebrow {font-size:10px; font-weight:700; letter-spacing:2.3px; color:#b7f77b; margin-bottom:8px;}\n.headline {font-size:27px; font-weight:600; letter-spacing:-0.7px; margin:0 0 6px;}\n.subline {font-size:12px; color:#a3afa8; line-height:1.5;}\n.pill {border:1px solid #5c6b43; border-radius:18px; padding:6px 12px; font-size:10px; letter-spacing:1px; color:#b7f77b; white-space:nowrap;}\n.nav {display:flex;gap:14px;margin-top:13px;flex-wrap:wrap;}\n.nav a,.runbook a {color:#c8ef99;text-decoration:none;font-size:11px;}\n.domains {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:12px 8px;}\n.domain {background:#171f1c;border:1px solid #34413a;border-radius:7px;padding:14px 10px;min-height:78px;}\n.domain-title {font-size:9px;letter-spacing:1.1px;color:#aab7ae;margin-bottom:14px;}\n.status {font-size:12px;font-weight:600;letter-spacing:.4px;}\n.caption {font-size:9px;color:#7f8b84;margin-top:9px;}\n.brief {padding:17px 18px;border-left:3px solid #ff9770;background:linear-gradient(130deg,#251c18,#161b20);margin:8px;border-radius:3px;}\n.brief h3 {font-size:18px;margin:9px 0 12px;letter-spacing:-.3px;}\n.brief p {color:#c1c6c0;font-size:11px;line-height:1.65;margin:8px 0;}\n.brief .meta {font-size:10px;color:#a9b8a9;letter-spacing:.3px;}\n.runbook {margin-top:12px;border-top:1px solid #39413a;padding-top:10px;}\n.source-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;}\n.source {padding:12px;background:#17201d;border:1px solid #34413a;border-radius:6px;}\n.source b {font-size:12px;color:#d9eed0;} .source small {display:block;font-size:10px;color:#96a599;margin-top:7px;}\n.source a {display:block;font-size:10px;color:#b7f77b;margin-top:8px;}\n@media(max-width:900px){.domains{grid-template-columns:repeat(4,minmax(0,1fr));}.headline{font-size:22px}.source-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}\n",
+        "helpers": "",
+        "afterRender": "",
+        "externalStyles": [],
+        "contentPartials": [],
+        "wrap": false
+      },
+      "id": 5
+    },
+    {
+      "type": "gauge",
+      "title": "KV-cache occupancy",
+      "gridPos": {
+        "x": 0,
+        "y": 21,
+        "w": 6,
+        "h": 7
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "gpu_cache_usage_perc: GPU KV-cache occupancy, from 0 to 1. Unit: ratio. documented exporter name.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "gpu_cache_usage_perc",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.8
+              },
+              {
+                "color": "red",
+                "value": 0.95
+              }
+            ]
+          },
+          "min": 0,
+          "max": 1
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "id": 6,
+      "links": [
+        {
+          "title": "NVIDIA NIM \u00b7 original docs",
+          "url": "https://docs.nvidia.com/nim/large-language-models/1.15.0/observability.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Generation success",
+      "gridPos": {
+        "x": 6,
+        "y": 21,
+        "w": 6,
+        "h": 7
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * lab:inference_success_ratio",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "textMode": "auto"
+      },
+      "id": 7
+    },
+    {
+      "type": "timeseries",
+      "title": "Request queue and active work",
+      "gridPos": {
+        "x": 12,
+        "y": 21,
+        "w": 12,
+        "h": 7
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "num_requests_running: Executing inference requests. Unit: requests. documented exporter name.\nnum_requests_waiting: Queued inference requests. Unit: requests. documented exporter name.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "num_requests_running",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Running requests"
+        },
+        {
+          "refId": "B",
+          "expr": "num_requests_waiting",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Waiting requests"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "showPoints": "never",
+            "axisPlacement": "auto",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 8,
+      "links": [
+        {
+          "title": "NVIDIA NIM \u00b7 original docs",
+          "url": "https://docs.nvidia.com/nim/large-language-models/1.15.0/observability.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "barchart",
+      "title": "Allocation and quota by project",
+      "gridPos": {
+        "x": 0,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "lab_runai_allocated_gpus: Project GPU allocation. Unit: GPUs. lab-defined normalized metric.\nlab_runai_quota_gpus: Project guaranteed quota. Unit: GPUs. lab-defined normalized metric.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_runai_allocated_gpus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        },
+        {
+          "refId": "B",
+          "expr": "lab_runai_quota_gpus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "orientation": "vertical",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.65,
+        "barWidth": 0.85,
+        "xField": "project",
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "project",
+            "mode": "outerTabular"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Time 1": true,
+              "Time 2": true,
+              "cluster 1": true,
+              "cluster 2": true,
+              "origin 1": true,
+              "origin 2": true,
+              "source 1": true,
+              "source 2": true
+            },
+            "renameByName": {
+              "Value #A": "Allocated",
+              "Value #B": "Quota"
+            }
+          }
+        }
+      ],
+      "id": 9,
+      "links": [
+        {
+          "title": "NVIDIA Run:ai \u00b7 original docs",
+          "url": "https://docs.nvidia.com/run-ai/self-hosted/v3.0/documentation/platform-management/monitor-performance/metrics",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Queue waits \u00b7 scheduler context",
+      "gridPos": {
+        "x": 12,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "lab_bcm_queue_wait_seconds: Oldest pending job wait. Unit: second. lab-defined normalized metric.\nlab_slurm_queue_wait_seconds: Oldest pending Slurm job wait. Unit: second. lab-defined normalized metric.\nlab_runai_queue_wait_seconds: Oldest pending workload wait. Unit: second. lab-defined normalized metric.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "max(lab_bcm_queue_wait_seconds)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "BCM"
+        },
+        {
+          "refId": "B",
+          "expr": "max(lab_slurm_queue_wait_seconds)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Slurm"
+        },
+        {
+          "refId": "C",
+          "expr": "max(lab_runai_queue_wait_seconds)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Run:ai"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "showPoints": "never",
+            "axisPlacement": "auto",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 10,
+      "links": [
+        {
+          "title": "Base Command Manager \u00b7 original docs",
+          "url": "https://docs.nvidia.com/base-command-manager/",
+          "targetBlank": true
+        },
+        {
+          "title": "Slurm \u00b7 original docs",
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "targetBlank": true
+        },
+        {
+          "title": "NVIDIA Run:ai \u00b7 original docs",
+          "url": "https://docs.nvidia.com/run-ai/self-hosted/v3.0/documentation/platform-management/monitor-performance/metrics",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Idle allocated GPUs",
+      "gridPos": {
+        "x": 0,
+        "y": 36,
+        "w": 6,
+        "h": 7
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "lab_bcm_idle_allocated_gpus: Allocated GPUs lacking useful progress. Unit: GPUs. lab-defined normalized metric.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_bcm_idle_allocated_gpus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "textMode": "auto"
+      },
+      "id": 11,
+      "links": [
+        {
+          "title": "Base Command Manager \u00b7 original docs",
+          "url": "https://docs.nvidia.com/base-command-manager/",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "title": "NIM Operator resource states",
+      "gridPos": {
+        "x": 6,
+        "y": 36,
+        "w": 10,
+        "h": 7
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "nimCache_status_total: NIM cache resources by state. Unit: resources. documented exporter name.\nnimService_status_total: NIM services by state. Unit: resources. documented exporter name.\nnimPipeline_status_total: NIM pipelines by state. Unit: resources. documented exporter name.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{__name__=~\"nimCache_status_total|nimService_status_total|nimPipeline_status_total\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "sortBy": []
+      },
+      "id": 12,
+      "links": [
+        {
+          "title": "NIM Operator \u00b7 original docs",
+          "url": "https://docs.nvidia.com/nim-operator/latest/observability.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Input, compute and platform temperature",
+      "gridPos": {
+        "x": 16,
+        "y": 36,
+        "w": 8,
+        "h": 7
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "DCGM_FI_DEV_GPU_TEMP: GPU temperature. Unit: celsius. documented exporter name.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "DCGM_FI_DEV_GPU_TEMP",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "{{node}} / {{gpu}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "showPoints": "never",
+            "axisPlacement": "auto",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 13,
+      "links": [
+        {
+          "title": "DCGM Exporter \u00b7 original docs",
+          "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/dcgm-exporter-metrics.html",
+          "targetBlank": true
+        }
+      ]
+    }
+  ],
+  "annotations": {
+    "list": []
+  },
+  "templating": {
+    "list": []
+  },
+  "links": [
+    {
+      "title": "NVIDIA framework",
+      "url": "https://developer.nvidia.com/blog/how-to-choose-full-stack-observability-for-nvidia-ai-factories/",
+      "targetBlank": true
+    },
+    {
+      "title": "Scenario console",
+      "url": "http://localhost:8090",
+      "targetBlank": true
+    }
+  ]
+}

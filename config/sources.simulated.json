@@ -1,0 +1,44 @@
+{
+  "redfish": {
+    "mode": "simulated"
+  },
+  "ipmi": {
+    "mode": "simulated"
+  },
+  "dcgm": {
+    "mode": "simulated"
+  },
+  "nvsm": {
+    "mode": "simulated"
+  },
+  "ufm": {
+    "mode": "simulated"
+  },
+  "netq": {
+    "mode": "simulated"
+  },
+  "nmx": {
+    "mode": "simulated"
+  },
+  "bcm": {
+    "mode": "simulated"
+  },
+  "slurm": {
+    "mode": "simulated"
+  },
+  "runai": {
+    "mode": "simulated"
+  },
+  "nim": {
+    "mode": "simulated"
+  },
+  "nim_operator": {
+    "mode": "simulated"
+  },
+  "mission_control": {
+    "mode": "simulated"
+  },
+  "workload": {
+    "mode": "simulated"
+  }
+}

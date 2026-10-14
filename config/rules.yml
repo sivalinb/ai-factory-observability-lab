@@ -1,0 +1,213 @@
+{
+  "groups": [
+    {
+      "name": "factory-lab",
+      "rules": [
+        {
+          "record": "lab:training_throughput_ratio",
+          "expr": "rate(lab_training_tokens_total[1m]) / on(workload, cluster, origin) lab_training_baseline_tokens_per_second"
+        },
+        {
+          "record": "lab:inference_success_ratio",
+          "expr": "rate(request_success_total[1m]) / clamp_min(rate(request_success_total[1m]) + rate(request_failure_total[1m]), 0.000001)"
+        },
+        {
+          "record": "lab:inference_ttft_p95_seconds",
+          "expr": "histogram_quantile(0.95, sum by (le, cluster, origin) (rate(time_to_first_token_seconds_bucket[1m])))"
+        },
+        {
+          "alert": "TelemetrySourceUnavailable",
+          "expr": "lab_source_up == 0",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "telemetry",
+            "owner": "observability"
+          },
+          "annotations": {
+            "summary": "Restore the unavailable source; domain health is unknown.",
+            "runbook_url": "http://localhost:8090/runbooks#telemetry",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "GpuXidObserved",
+          "expr": "DCGM_FI_DEV_XID_ERRORS > 0",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "gpu",
+            "owner": "gpu-platform"
+          },
+          "annotations": {
+            "summary": "Classify the observed XID code and inspect the node.",
+            "runbook_url": "http://localhost:8090/runbooks#gpu",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "PlatformThermalFault",
+          "expr": "DCGM_FI_DEV_GPU_TEMP > 85",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "platform",
+            "owner": "datacenter"
+          },
+          "annotations": {
+            "summary": "Inspect cooling, power and clock limiting.",
+            "runbook_url": "http://localhost:8090/runbooks#platform",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "StorageHealthFault",
+          "expr": "lab_nvsm_storage_healthy == 0",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "platform",
+            "owner": "gpu-platform"
+          },
+          "annotations": {
+            "summary": "Inspect local storage and input pipeline health.",
+            "runbook_url": "http://localhost:8090/runbooks#platform",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "InfiniBandGrayFailure",
+          "expr": "(max by (cluster, origin, node, workload) (lab_nccl_collective_seconds{workload=\"train-42\"}) > 0.08) and on (cluster, origin, node) (max by (cluster, origin, node) (lab_ufm_effective_ber_ratio) > 1e-10)",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "infiniband",
+            "owner": "fabric"
+          },
+          "annotations": {
+            "summary": "Inspect the affected InfiniBand port and cable.",
+            "runbook_url": "http://localhost:8090/runbooks#infiniband",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "RoceCongestion",
+          "expr": "lab_netq_buffer_usage_ratio > 0.85",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "ethernet",
+            "owner": "fabric"
+          },
+          "annotations": {
+            "summary": "Inspect RoCE buffers, PFC and ECN.",
+            "runbook_url": "http://localhost:8090/runbooks#ethernet",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "NvlinkDomainDegraded",
+          "expr": "lab_nmx_link_healthy == 0",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "nvlink",
+            "owner": "fabric"
+          },
+          "annotations": {
+            "summary": "Inspect the NVLink domain and partition.",
+            "runbook_url": "http://localhost:8090/runbooks#nvlink",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "SchedulingStarvation",
+          "expr": "(lab_runai_queue_wait_seconds > 120) and on (cluster, origin, project) (lab_runai_idle_allocated_gpus > 0)",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "scheduling",
+            "owner": "ml-platform"
+          },
+          "annotations": {
+            "summary": "Review quotas and idle reservations.",
+            "runbook_url": "http://localhost:8090/runbooks#scheduling",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "InferenceCapacityPressure",
+          "expr": "gpu_cache_usage_perc > 0.9",
+          "for": "10s",
+          "labels": {
+            "severity": "warning",
+            "domain": "inference",
+            "owner": "serving"
+          },
+          "annotations": {
+            "summary": "Inspect queue depth and concurrency limits.",
+            "runbook_url": "http://localhost:8090/runbooks#inference",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "TrainingProgressSlow",
+          "expr": "lab:training_throughput_ratio < 0.8",
+          "for": "20s",
+          "labels": {
+            "severity": "warning",
+            "domain": "workload",
+            "owner": "training"
+          },
+          "annotations": {
+            "summary": "Use the triage board to inspect progress and infrastructure.",
+            "runbook_url": "http://localhost:8090/runbooks#workload",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "InferenceLatencySlo",
+          "expr": "lab:inference_ttft_p95_seconds > 1.5",
+          "for": "20s",
+          "labels": {
+            "severity": "warning",
+            "domain": "inference",
+            "owner": "serving"
+          },
+          "annotations": {
+            "summary": "Investigate first-token latency with queue and fabric evidence.",
+            "runbook_url": "http://localhost:8090/runbooks#inference",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        },
+        {
+          "alert": "InferenceSuccessSlo",
+          "expr": "lab:inference_success_ratio < 0.99",
+          "for": "20s",
+          "labels": {
+            "severity": "warning",
+            "domain": "inference",
+            "owner": "serving"
+          },
+          "annotations": {
+            "summary": "Investigate failed model generations.",
+            "runbook_url": "http://localhost:8090/runbooks#inference",
+            "dashboard_url": "http://localhost:3000/d/factory-overview",
+            "scope": "Lab thresholds; validate against real workload baselines before production use."
+          }
+        }
+      ]
+    }
+  ]
+}

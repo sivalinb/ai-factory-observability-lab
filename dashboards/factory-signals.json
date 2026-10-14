@@ -1,0 +1,520 @@
+{
+  "uid": "factory-signals",
+  "title": "Factory / Signal atlas",
+  "description": "AI Factory Reliability Lab. Default vendor and workload feeds are simulated. Origins remain visible. Source-linked documentation accompanies every signal.",
+  "schemaVersion": 41,
+  "version": 1,
+  "editable": true,
+  "tags": [
+    "ai-factory",
+    "nvidia",
+    "observability-lab"
+  ],
+  "timezone": "browser",
+  "refresh": "5s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m"
+    ]
+  },
+  "style": "dark",
+  "panels": [
+    {
+      "type": "marcusolsson-dynamictext-panel",
+      "title": "",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_factory_info",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "content": "{{#each data}}<div class='hero'><div><div class='eyebrow'>AI FACTORY / SIGNAL ATLAS 04</div><div class='headline'>Every signal has a source and a purpose.</div><div class='subline'>Native names, normalized contracts, units and original documentation. Availability is measured.</div><div class='nav'><a href='/d/factory-overview'>Overview \u2197</a><a href='/d/factory-fabric'>Fabric \u2197</a><a href='/d/factory-workloads'>Workloads \u2197</a><a href='/d/factory-signals'>Signal atlas \u2197</a><a href='http://localhost:8090' target='_blank'>Scenario console \u2197</a></div></div><div class='pill'>{{mode}} / {{signal_count}} SIGNALS</div></div>{{/each}}",
+        "defaultContent": "<div class='brief'><h3>Telemetry unavailable</h3><p>Check the source feed and time range. Missing telemetry is not healthy telemetry.</p></div>",
+        "renderMode": "allRows",
+        "editors": [
+          "styles"
+        ],
+        "editor": {
+          "language": "html",
+          "format": "auto"
+        },
+        "styles": "\n& { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #eef3ef; }\n.hero {padding: 20px 24px; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(110deg,#19261d,#121820 68%); border-left:4px solid #b7f77b; min-height:90px;}\n.eyebrow {font-size:10px; font-weight:700; letter-spacing:2.3px; color:#b7f77b; margin-bottom:8px;}\n.headline {font-size:27px; font-weight:600; letter-spacing:-0.7px; margin:0 0 6px;}\n.subline {font-size:12px; color:#a3afa8; line-height:1.5;}\n.pill {border:1px solid #5c6b43; border-radius:18px; padding:6px 12px; font-size:10px; letter-spacing:1px; color:#b7f77b; white-space:nowrap;}\n.nav {display:flex;gap:14px;margin-top:13px;flex-wrap:wrap;}\n.nav a,.runbook a {color:#c8ef99;text-decoration:none;font-size:11px;}\n.domains {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:12px 8px;}\n.domain {background:#171f1c;border:1px solid #34413a;border-radius:7px;padding:14px 10px;min-height:78px;}\n.domain-title {font-size:9px;letter-spacing:1.1px;color:#aab7ae;margin-bottom:14px;}\n.status {font-size:12px;font-weight:600;letter-spacing:.4px;}\n.caption {font-size:9px;color:#7f8b84;margin-top:9px;}\n.brief {padding:17px 18px;border-left:3px solid #ff9770;background:linear-gradient(130deg,#251c18,#161b20);margin:8px;border-radius:3px;}\n.brief h3 {font-size:18px;margin:9px 0 12px;letter-spacing:-.3px;}\n.brief p {color:#c1c6c0;font-size:11px;line-height:1.65;margin:8px 0;}\n.brief .meta {font-size:10px;color:#a9b8a9;letter-spacing:.3px;}\n.runbook {margin-top:12px;border-top:1px solid #39413a;padding-top:10px;}\n.source-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;}\n.source {padding:12px;background:#17201d;border:1px solid #34413a;border-radius:6px;}\n.source b {font-size:12px;color:#d9eed0;} .source small {display:block;font-size:10px;color:#96a599;margin-top:7px;}\n.source a {display:block;font-size:10px;color:#b7f77b;margin-top:8px;}\n@media(max-width:900px){.domains{grid-template-columns:repeat(4,minmax(0,1fr));}.headline{font-size:22px}.source-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}\n",
+        "helpers": "",
+        "afterRender": "",
+        "externalStyles": [],
+        "contentPartials": [],
+        "wrap": false
+      },
+      "id": 1
+    },
+    {
+      "type": "marcusolsson-dynamictext-panel",
+      "title": "Exporter passports",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 24,
+        "h": 12
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_source_up{source=~\"$source\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "content": "{{#each data}}{{#if @first}}<div class='source-grid'>{{/if}}<div class='source'><b>{{source_title}}</b><small>{{domain}} \u00b7 {{mode}}</small><small>Feed available: {{Value}}</small><a href='{{source_url}}' target='_blank'>Original documentation \u2197</a></div>{{#if @last}}</div>{{/if}}{{/each}}",
+        "defaultContent": "<div class='brief'><h3>Telemetry unavailable</h3><p>Check the source feed and time range. Missing telemetry is not healthy telemetry.</p></div>",
+        "renderMode": "allRows",
+        "editors": [
+          "styles"
+        ],
+        "editor": {
+          "language": "html",
+          "format": "auto"
+        },
+        "styles": "\n& { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #eef3ef; }\n.hero {padding: 20px 24px; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(110deg,#19261d,#121820 68%); border-left:4px solid #b7f77b; min-height:90px;}\n.eyebrow {font-size:10px; font-weight:700; letter-spacing:2.3px; color:#b7f77b; margin-bottom:8px;}\n.headline {font-size:27px; font-weight:600; letter-spacing:-0.7px; margin:0 0 6px;}\n.subline {font-size:12px; color:#a3afa8; line-height:1.5;}\n.pill {border:1px solid #5c6b43; border-radius:18px; padding:6px 12px; font-size:10px; letter-spacing:1px; color:#b7f77b; white-space:nowrap;}\n.nav {display:flex;gap:14px;margin-top:13px;flex-wrap:wrap;}\n.nav a,.runbook a {color:#c8ef99;text-decoration:none;font-size:11px;}\n.domains {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:12px 8px;}\n.domain {background:#171f1c;border:1px solid #34413a;border-radius:7px;padding:14px 10px;min-height:78px;}\n.domain-title {font-size:9px;letter-spacing:1.1px;color:#aab7ae;margin-bottom:14px;}\n.status {font-size:12px;font-weight:600;letter-spacing:.4px;}\n.caption {font-size:9px;color:#7f8b84;margin-top:9px;}\n.brief {padding:17px 18px;border-left:3px solid #ff9770;background:linear-gradient(130deg,#251c18,#161b20);margin:8px;border-radius:3px;}\n.brief h3 {font-size:18px;margin:9px 0 12px;letter-spacing:-.3px;}\n.brief p {color:#c1c6c0;font-size:11px;line-height:1.65;margin:8px 0;}\n.brief .meta {font-size:10px;color:#a9b8a9;letter-spacing:.3px;}\n.runbook {margin-top:12px;border-top:1px solid #39413a;padding-top:10px;}\n.source-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;}\n.source {padding:12px;background:#17201d;border:1px solid #34413a;border-radius:6px;}\n.source b {font-size:12px;color:#d9eed0;} .source small {display:block;font-size:10px;color:#96a599;margin-top:7px;}\n.source a {display:block;font-size:10px;color:#b7f77b;margin-top:8px;}\n@media(max-width:900px){.domains{grid-template-columns:repeat(4,minmax(0,1fr));}.headline{font-size:22px}.source-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}\n",
+        "helpers": "",
+        "afterRender": "",
+        "externalStyles": [],
+        "contentPartials": [],
+        "wrap": false
+      },
+      "id": 2
+    },
+    {
+      "type": "table",
+      "title": "Signal dictionary \u00b7 original docs are one click away",
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 24,
+        "h": 19
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_signal_available{source=~\"$source\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Original docs"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Open original documentation",
+                    "url": "${__value.raw}",
+                    "targetBlank": true
+                  }
+                ]
+              },
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Available"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "0": {
+                        "text": "Missing",
+                        "color": "#ff9770"
+                      },
+                      "1": {
+                        "text": "Available",
+                        "color": "#a8e878"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "sortBy": [
+          {
+            "displayName": "source",
+            "desc": false
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "cluster": true,
+              "origin": true,
+              "__name__": true,
+              "instance": true,
+              "job": true
+            },
+            "indexByName": {
+              "source": 0,
+              "metric": 1,
+              "Value": 2,
+              "mode": 3,
+              "metric_type": 4,
+              "unit": 5,
+              "original_field": 6,
+              "naming": 7,
+              "source_url": 8
+            },
+            "renameByName": {
+              "Value": "Available",
+              "source_url": "Original docs",
+              "original_field": "Original field",
+              "metric_type": "Type",
+              "metric": "Signal"
+            }
+          }
+        }
+      ],
+      "id": 3
+    },
+    {
+      "type": "bargauge",
+      "title": "Expected signal coverage by source",
+      "gridPos": {
+        "x": 0,
+        "y": 35,
+        "w": 14,
+        "h": 9
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * sum by (source) (lab_signal_available) / count by (source) (lab_signal_available)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "{{source}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "id": 4
+    },
+    {
+      "type": "timeseries",
+      "title": "Age of last successful collection",
+      "gridPos": {
+        "x": 14,
+        "y": 35,
+        "w": 10,
+        "h": 9
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "time() - lab_source_last_update_unixtime_seconds",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "{{source}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "showPoints": "never",
+            "axisPlacement": "auto",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 5
+    }
+  ],
+  "annotations": {
+    "list": []
+  },
+  "templating": {
+    "list": [
+      {
+        "name": "source",
+        "type": "query",
+        "label": "Source",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "factory-prometheus"
+        },
+        "query": "label_values(lab_source_up, source)",
+        "definition": "label_values(lab_source_up, source)",
+        "refresh": 1,
+        "includeAll": true,
+        "allValue": ".*",
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        }
+      }
+    ]
+  },
+  "links": [
+    {
+      "title": "NVIDIA framework",
+      "url": "https://developer.nvidia.com/blog/how-to-choose-full-stack-observability-for-nvidia-ai-factories/",
+      "targetBlank": true
+    },
+    {
+      "title": "Scenario console",
+      "url": "http://localhost:8090",
+      "targetBlank": true
+    }
+  ]
+}

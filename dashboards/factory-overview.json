@@ -1,0 +1,1347 @@
+{
+  "uid": "factory-overview",
+  "title": "Factory / Overview",
+  "description": "AI Factory Reliability Lab. Default vendor and workload feeds are simulated. Origins remain visible. Source-linked documentation accompanies every signal.",
+  "schemaVersion": 41,
+  "version": 1,
+  "editable": true,
+  "tags": [
+    "ai-factory",
+    "nvidia",
+    "observability-lab"
+  ],
+  "timezone": "browser",
+  "refresh": "5s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m"
+    ]
+  },
+  "style": "dark",
+  "panels": [
+    {
+      "type": "marcusolsson-dynamictext-panel",
+      "title": "",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_factory_info",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "content": "{{#each data}}<div class='hero'><div><div class='eyebrow'>AI FACTORY / OPERATIONS 01</div><div class='headline'>A clear view of the whole factory.</div><div class='subline'>GPU, node, fabric and workload evidence on one timeline. Every demo feed is labeled.</div><div class='nav'><a href='/d/factory-overview'>Overview \u2197</a><a href='/d/factory-fabric'>Fabric \u2197</a><a href='/d/factory-workloads'>Workloads \u2197</a><a href='/d/factory-signals'>Signal atlas \u2197</a><a href='http://localhost:8090' target='_blank'>Scenario console \u2197</a></div></div><div class='pill'>{{mode}} / {{signal_count}} SIGNALS</div></div>{{/each}}",
+        "defaultContent": "<div class='brief'><h3>Telemetry unavailable</h3><p>Check the source feed and time range. Missing telemetry is not healthy telemetry.</p></div>",
+        "renderMode": "allRows",
+        "editors": [
+          "styles"
+        ],
+        "editor": {
+          "language": "html",
+          "format": "auto"
+        },
+        "styles": "\n& { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #eef3ef; }\n.hero {padding: 20px 24px; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(110deg,#19261d,#121820 68%); border-left:4px solid #b7f77b; min-height:90px;}\n.eyebrow {font-size:10px; font-weight:700; letter-spacing:2.3px; color:#b7f77b; margin-bottom:8px;}\n.headline {font-size:27px; font-weight:600; letter-spacing:-0.7px; margin:0 0 6px;}\n.subline {font-size:12px; color:#a3afa8; line-height:1.5;}\n.pill {border:1px solid #5c6b43; border-radius:18px; padding:6px 12px; font-size:10px; letter-spacing:1px; color:#b7f77b; white-space:nowrap;}\n.nav {display:flex;gap:14px;margin-top:13px;flex-wrap:wrap;}\n.nav a,.runbook a {color:#c8ef99;text-decoration:none;font-size:11px;}\n.domains {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:12px 8px;}\n.domain {background:#171f1c;border:1px solid #34413a;border-radius:7px;padding:14px 10px;min-height:78px;}\n.domain-title {font-size:9px;letter-spacing:1.1px;color:#aab7ae;margin-bottom:14px;}\n.status {font-size:12px;font-weight:600;letter-spacing:.4px;}\n.caption {font-size:9px;color:#7f8b84;margin-top:9px;}\n.brief {padding:17px 18px;border-left:3px solid #ff9770;background:linear-gradient(130deg,#251c18,#161b20);margin:8px;border-radius:3px;}\n.brief h3 {font-size:18px;margin:9px 0 12px;letter-spacing:-.3px;}\n.brief p {color:#c1c6c0;font-size:11px;line-height:1.65;margin:8px 0;}\n.brief .meta {font-size:10px;color:#a9b8a9;letter-spacing:.3px;}\n.runbook {margin-top:12px;border-top:1px solid #39413a;padding-top:10px;}\n.source-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;}\n.source {padding:12px;background:#17201d;border:1px solid #34413a;border-radius:6px;}\n.source b {font-size:12px;color:#d9eed0;} .source small {display:block;font-size:10px;color:#96a599;margin-top:7px;}\n.source a {display:block;font-size:10px;color:#b7f77b;margin-top:8px;}\n@media(max-width:900px){.domains{grid-template-columns:repeat(4,minmax(0,1fr));}.headline{font-size:22px}.source-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}\n",
+        "helpers": "",
+        "afterRender": "",
+        "externalStyles": [],
+        "contentPartials": [],
+        "wrap": false
+      },
+      "id": 1
+    },
+    {
+      "type": "stat",
+      "title": "Active hypotheses",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_incident_count",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#b7f77b"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "textMode": "auto"
+      },
+      "id": 2
+    },
+    {
+      "type": "stat",
+      "title": "Feeds available",
+      "gridPos": {
+        "x": 4,
+        "y": 4,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * sum(lab_source_up) / count(lab_source_up)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#b7f77b"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "textMode": "auto"
+      },
+      "id": 3
+    },
+    {
+      "type": "stat",
+      "title": "Demo GPU allocation",
+      "gridPos": {
+        "x": 8,
+        "y": 4,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_allocated_gpus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#b7f77b"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "textMode": "auto"
+      },
+      "id": 4
+    },
+    {
+      "type": "stat",
+      "title": "Training / baseline",
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * lab:training_throughput_ratio",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#b7f77b"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "textMode": "auto"
+      },
+      "id": 5
+    },
+    {
+      "type": "stat",
+      "title": "Inference TTFT \u00b7 p95",
+      "gridPos": {
+        "x": 16,
+        "y": 4,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab:inference_ttft_p95_seconds",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#b7f77b"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "textMode": "auto"
+      },
+      "id": 6
+    },
+    {
+      "type": "stat",
+      "title": "Lost capacity estimate",
+      "gridPos": {
+        "x": 20,
+        "y": 4,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "lab_capacity_lost_gpu_hours_total: Integrated baseline-relative lost capacity estimate. Unit: GPU-hour equivalent. lab-defined normalized metric.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_capacity_lost_gpu_hours_total",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix:GPU\u00b7h",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#b7f77b"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "textMode": "auto"
+      },
+      "id": 7,
+      "links": [
+        {
+          "title": "Application instrumentation \u00b7 original docs",
+          "url": "https://docs.pytorch.org/docs/stable/distributed.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "marcusolsson-dynamictext-panel",
+      "title": "Domain compass",
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 24,
+        "h": 5
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_domain_status",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "content": "{{#each data}}{{#if @first}}<div class='domains'>{{/if}}<div class='domain'><div class='domain-title'>{{title}}</div><div class='status' style='color:{{color}}'>\u25cf {{status}}</div><div class='caption'>{{domain}}</div></div>{{#if @last}}</div>{{/if}}{{/each}}",
+        "defaultContent": "<div class='brief'><h3>Telemetry unavailable</h3><p>Check the source feed and time range. Missing telemetry is not healthy telemetry.</p></div>",
+        "renderMode": "allRows",
+        "editors": [
+          "styles"
+        ],
+        "editor": {
+          "language": "html",
+          "format": "auto"
+        },
+        "styles": "\n& { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #eef3ef; }\n.hero {padding: 20px 24px; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(110deg,#19261d,#121820 68%); border-left:4px solid #b7f77b; min-height:90px;}\n.eyebrow {font-size:10px; font-weight:700; letter-spacing:2.3px; color:#b7f77b; margin-bottom:8px;}\n.headline {font-size:27px; font-weight:600; letter-spacing:-0.7px; margin:0 0 6px;}\n.subline {font-size:12px; color:#a3afa8; line-height:1.5;}\n.pill {border:1px solid #5c6b43; border-radius:18px; padding:6px 12px; font-size:10px; letter-spacing:1px; color:#b7f77b; white-space:nowrap;}\n.nav {display:flex;gap:14px;margin-top:13px;flex-wrap:wrap;}\n.nav a,.runbook a {color:#c8ef99;text-decoration:none;font-size:11px;}\n.domains {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:12px 8px;}\n.domain {background:#171f1c;border:1px solid #34413a;border-radius:7px;padding:14px 10px;min-height:78px;}\n.domain-title {font-size:9px;letter-spacing:1.1px;color:#aab7ae;margin-bottom:14px;}\n.status {font-size:12px;font-weight:600;letter-spacing:.4px;}\n.caption {font-size:9px;color:#7f8b84;margin-top:9px;}\n.brief {padding:17px 18px;border-left:3px solid #ff9770;background:linear-gradient(130deg,#251c18,#161b20);margin:8px;border-radius:3px;}\n.brief h3 {font-size:18px;margin:9px 0 12px;letter-spacing:-.3px;}\n.brief p {color:#c1c6c0;font-size:11px;line-height:1.65;margin:8px 0;}\n.brief .meta {font-size:10px;color:#a9b8a9;letter-spacing:.3px;}\n.runbook {margin-top:12px;border-top:1px solid #39413a;padding-top:10px;}\n.source-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;}\n.source {padding:12px;background:#17201d;border:1px solid #34413a;border-radius:6px;}\n.source b {font-size:12px;color:#d9eed0;} .source small {display:block;font-size:10px;color:#96a599;margin-top:7px;}\n.source a {display:block;font-size:10px;color:#b7f77b;margin-top:8px;}\n@media(max-width:900px){.domains{grid-template-columns:repeat(4,minmax(0,1fr));}.headline{font-size:22px}.source-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}\n",
+        "helpers": "",
+        "afterRender": "",
+        "externalStyles": [],
+        "contentPartials": [],
+        "wrap": false
+      },
+      "id": 8
+    },
+    {
+      "type": "timeseries",
+      "title": "Useful work \u00b7 training and inference",
+      "gridPos": {
+        "x": 0,
+        "y": 13,
+        "w": 16,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "generation_tokens_total: Generated output tokens. Unit: tokens. documented exporter name.\nlab_training_tokens_total: Training tokens processed. Unit: tokens. lab-defined normalized metric.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(lab_training_tokens_total{workload=\"train-42\"}[1m])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Training tokens/s"
+        },
+        {
+          "refId": "B",
+          "expr": "rate(generation_tokens_total[1m])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Inference tokens/s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix:tokens/s",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "showPoints": "never",
+            "axisPlacement": "auto",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 9,
+      "links": [
+        {
+          "title": "NVIDIA NIM \u00b7 original docs",
+          "url": "https://docs.nvidia.com/nim/large-language-models/1.15.0/observability.html",
+          "targetBlank": true
+        },
+        {
+          "title": "Application instrumentation \u00b7 original docs",
+          "url": "https://docs.pytorch.org/docs/stable/distributed.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "marcusolsson-dynamictext-panel",
+      "title": "Evidence \u2192 action",
+      "gridPos": {
+        "x": 16,
+        "y": 13,
+        "w": 8,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_incident_info",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "content": "{{#each data}}<div class='brief'><div class='eyebrow'>INCIDENT BRIEF / {{mode}}</div><h3>{{title}}</h3><div class='meta'>{{node}} \u00b7 {{workload}}</div><p><b>Evidence</b><br>{{evidence}}</p><p><b>Next action</b><br>{{action}}</p><div class='runbook'><a href='http://localhost:8090/runbooks#{{domain}}' target='_blank'>Open {{domain}} runbook \u2197</a></div></div>{{/each}}",
+        "defaultContent": "<div class='brief'><h3>Telemetry unavailable</h3><p>Check the source feed and time range. Missing telemetry is not healthy telemetry.</p></div>",
+        "renderMode": "allRows",
+        "editors": [
+          "styles"
+        ],
+        "editor": {
+          "language": "html",
+          "format": "auto"
+        },
+        "styles": "\n& { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #eef3ef; }\n.hero {padding: 20px 24px; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(110deg,#19261d,#121820 68%); border-left:4px solid #b7f77b; min-height:90px;}\n.eyebrow {font-size:10px; font-weight:700; letter-spacing:2.3px; color:#b7f77b; margin-bottom:8px;}\n.headline {font-size:27px; font-weight:600; letter-spacing:-0.7px; margin:0 0 6px;}\n.subline {font-size:12px; color:#a3afa8; line-height:1.5;}\n.pill {border:1px solid #5c6b43; border-radius:18px; padding:6px 12px; font-size:10px; letter-spacing:1px; color:#b7f77b; white-space:nowrap;}\n.nav {display:flex;gap:14px;margin-top:13px;flex-wrap:wrap;}\n.nav a,.runbook a {color:#c8ef99;text-decoration:none;font-size:11px;}\n.domains {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:12px 8px;}\n.domain {background:#171f1c;border:1px solid #34413a;border-radius:7px;padding:14px 10px;min-height:78px;}\n.domain-title {font-size:9px;letter-spacing:1.1px;color:#aab7ae;margin-bottom:14px;}\n.status {font-size:12px;font-weight:600;letter-spacing:.4px;}\n.caption {font-size:9px;color:#7f8b84;margin-top:9px;}\n.brief {padding:17px 18px;border-left:3px solid #ff9770;background:linear-gradient(130deg,#251c18,#161b20);margin:8px;border-radius:3px;}\n.brief h3 {font-size:18px;margin:9px 0 12px;letter-spacing:-.3px;}\n.brief p {color:#c1c6c0;font-size:11px;line-height:1.65;margin:8px 0;}\n.brief .meta {font-size:10px;color:#a9b8a9;letter-spacing:.3px;}\n.runbook {margin-top:12px;border-top:1px solid #39413a;padding-top:10px;}\n.source-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;}\n.source {padding:12px;background:#17201d;border:1px solid #34413a;border-radius:6px;}\n.source b {font-size:12px;color:#d9eed0;} .source small {display:block;font-size:10px;color:#96a599;margin-top:7px;}\n.source a {display:block;font-size:10px;color:#b7f77b;margin-top:8px;}\n@media(max-width:900px){.domains{grid-template-columns:repeat(4,minmax(0,1fr));}.headline{font-size:22px}.source-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}\n",
+        "helpers": "",
+        "afterRender": "",
+        "externalStyles": [],
+        "contentPartials": [],
+        "wrap": false
+      },
+      "id": 10
+    },
+    {
+      "type": "nodeGraph",
+      "title": "Fabric map \u00b7 demo inventory",
+      "gridPos": {
+        "x": 0,
+        "y": 21,
+        "w": 12,
+        "h": 10
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "A topology inventory with rule-derived node status. Default inventory is synthetic; replace it for native deployments.",
+      "targets": [
+        {
+          "refId": "nodes",
+          "expr": "lab_topology_node_info",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        },
+        {
+          "refId": "edges",
+          "expr": "lab_topology_edge_info{source=~\".+\",target=~\".+\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "nodes": {
+          "mainStatUnit": "short"
+        },
+        "edges": {
+          "mainStatUnit": "short"
+        },
+        "zoomMode": "fit"
+      },
+      "id": 11
+    },
+    {
+      "type": "bargauge",
+      "title": "Collector heartbeat",
+      "gridPos": {
+        "x": 12,
+        "y": 21,
+        "w": 6,
+        "h": 10
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_source_up",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "{{source}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#b7f77b",
+                "value": 1
+              }
+            ]
+          },
+          "min": 0,
+          "max": 1
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "displayMode": "basic",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {
+          "titleSize": 10,
+          "valueSize": 10
+        }
+      },
+      "id": 12
+    },
+    {
+      "type": "gauge",
+      "title": "GPU thermal envelope",
+      "gridPos": {
+        "x": 18,
+        "y": 21,
+        "w": 6,
+        "h": 10
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "DCGM_FI_DEV_GPU_TEMP: GPU temperature. Unit: celsius. documented exporter name.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "max(DCGM_FI_DEV_GPU_TEMP)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "id": 13,
+      "links": [
+        {
+          "title": "DCGM Exporter \u00b7 original docs",
+          "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/dcgm-exporter-metrics.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "state-timeline",
+      "title": "Domain history \u00b7 unknown stays visible",
+      "gridPos": {
+        "x": 0,
+        "y": 31,
+        "w": 14,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_domain_status",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "{{title}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Nominal",
+                  "color": "#a8e878"
+                },
+                "2": {
+                  "text": "Investigate",
+                  "color": "#ff9770"
+                },
+                "3": {
+                  "text": "Unknown",
+                  "color": "#bca8ff"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "showValue": "never",
+        "rowHeight": 0.8,
+        "mergeValues": true,
+        "legend": {
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "id": 14
+    },
+    {
+      "type": "stat",
+      "title": "GPU activity deck",
+      "gridPos": {
+        "x": 14,
+        "y": 31,
+        "w": 10,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "DCGM_FI_DEV_GPU_UTIL: GPU activity percentage. Unit: percent. documented exporter name.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "DCGM_FI_DEV_GPU_UTIL",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": false,
+          "range": true,
+          "legendFormat": "{{node}} / GPU {{gpu}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "textMode": "value_and_name"
+      },
+      "id": 15,
+      "links": [
+        {
+          "title": "DCGM Exporter \u00b7 original docs",
+          "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/dcgm-exporter-metrics.html",
+          "targetBlank": true
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Routing ledger \u00b7 firing and pending alerts",
+      "gridPos": {
+        "x": 0,
+        "y": 39,
+        "w": 16,
+        "h": 7
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "Prometheus alerts route to Alertmanager and the local webhook ledger.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ALERTS",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "legendFormat": ""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "sortBy": []
+      },
+      "id": 16
+    },
+    {
+      "type": "piechart",
+      "title": "Provenance \u00b7 source modes",
+      "gridPos": {
+        "x": 16,
+        "y": 39,
+        "w": 8,
+        "h": 7
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "factory-prometheus"
+      },
+      "description": "",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (mode) (lab_source_up)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "factory-prometheus"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "instant": true,
+          "range": false,
+          "legendFormat": "{{mode}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "pieType": "donut",
+        "displayLabels": [
+          "name",
+          "value"
+        ],
+        "legend": {
+          "showLegend": true,
+          "placement": "bottom",
+          "displayMode": "list"
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "id": 17
+    }
+  ],
+  "annotations": {
+    "list": []
+  },
+  "templating": {
+    "list": []
+  },
+  "links": [
+    {
+      "title": "NVIDIA framework",
+      "url": "https://developer.nvidia.com/blog/how-to-choose-full-stack-observability-for-nvidia-ai-factories/",
+      "targetBlank": true
+    },
+    {
+      "title": "Scenario console",
+      "url": "http://localhost:8090",
+      "targetBlank": true
+    }
+  ]
+}

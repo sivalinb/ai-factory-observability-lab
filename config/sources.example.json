@@ -1,0 +1,36 @@
+{
+  "dcgm": {
+    "mode": "prometheus",
+    "url": "http://gpu-host:9400/metrics",
+    "labels": {
+      "node": "gpu-host"
+    },
+    "label_map": {
+      "hostname": "node",
+      "Hostname": "node"
+    }
+  },
+  "nim": {
+    "mode": "prometheus",
+    "url": "http://gpu-host:8000/v1/metrics",
+    "labels": {
+      "node": "gpu-host"
+    },
+    "rename": {},
+    "scale": {}
+  },
+  "redfish": {
+    "mode": "redfish",
+    "url": "https://bmc.example.invalid",
+    "username_env": "BMC_USERNAME",
+    "password_env": "BMC_PASSWORD",
+    "labels": {
+      "node": "gpu-host"
+    },
+    "paths": [
+      "/redfish/v1/Chassis/1/Thermal",
+      "/redfish/v1/Chassis/1/Power",
+      "/redfish/v1/Managers/1"
+    ]
+  }
+}

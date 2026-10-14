@@ -1,0 +1,40 @@
+{
+  "route": {
+    "receiver": "lab-ledger",
+    "group_by": [
+      "cluster",
+      "origin",
+      "domain",
+      "workload"
+    ],
+    "group_wait": "5s",
+    "group_interval": "10s",
+    "repeat_interval": "30m"
+  },
+  "receivers": [
+    {
+      "name": "lab-ledger",
+      "webhook_configs": [
+        {
+          "url": "http://lab:8090/api/alerts",
+          "send_resolved": true
+        }
+      ]
+    }
+  ],
+  "inhibit_rules": [
+    {
+      "source_matchers": [
+        "alertname=\"InfiniBandGrayFailure\""
+      ],
+      "target_matchers": [
+        "alertname=\"TrainingProgressSlow\""
+      ],
+      "equal": [
+        "cluster",
+        "origin",
+        "workload"
+      ]
+    }
+  ]
+}
