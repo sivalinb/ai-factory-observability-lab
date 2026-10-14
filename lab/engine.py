@@ -10,7 +10,7 @@ SCENARIOS = {
     "normal": ("Healthy baseline", "All synthetic domains are nominal."),
     "ib_gray_failure": ("InfiniBand gray failure", "BER and symbol errors rise while GPU utilization stays high."),
     "gpu_xid": ("GPU XID event", "GPU-03 reports XID 48 and uncorrectable ECC events."),
-    "thermal": ("Cooling degradation", "A fan and PSU fault precede temperature rise and clock limiting."),
+    "thermal": ("Cooling degradation", "Fan and PSU faults coincide with hot GPUs and clock limiting."),
     "roce_congestion": ("RoCE congestion", "PFC pauses, ECN and drops coincide with inference delays."),
     "nvlink_degradation": ("Rack NVLink degradation", "A rack link and partition degrade while collectives slow."),
     "scheduler_starvation": ("Scheduling starvation", "Pending jobs wait while allocated GPUs remain idle."),

@@ -81,6 +81,7 @@ def main():
             loss.backward()
             optimizer.step()
             collective_start = time.perf_counter()
+            collective.fill_(1)
             if rank == args.slow_rank:
                 time.sleep(args.delay_ms / 1000)
             if world > 1:
@@ -96,7 +97,7 @@ def main():
             else:
                 gathered[0] = info
             if rank == 0:
-                throughput = args.batch * args.sequence * world / max(g["step"] for g in gathered)
+                throughput = args.batch * args.sequence * world / (time.perf_counter() - started)
                 if 5 <= step < 20:
                     warmup.append(throughput)
                 if baseline is None and step >= 20:
